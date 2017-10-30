@@ -1,1 +1,4 @@
 # react_learning
+
+## Setting up environment
+In order to actually use react and JSX, you must install yarn globally. You can then use yarn to instal babel. Once babel is installed, you can go to your root directory to run `yarn init` which will set up your package.json file which will contain relevant dependencies. to add these dependencies to your package.json file, you can simply do a `yard add`. Specifically for this project, we use `yarn add babel-preset-react@6.24.1 babel-preset-env@1.5.2` which gives us access to react. this also then creates a node_modules folder. This module folder is not included in the repository as of now, but if you pull the project and run yarn install, you should be able to clone that node modules folder. in order to run the project, we installed live server using `yarn global add live-server`. Unsure of how live-server works totally, but when run on a folder, it listens for changes and as you make changes, it'll refresh your server.
