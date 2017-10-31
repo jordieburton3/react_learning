@@ -6,7 +6,30 @@ console.log("React.js is running");
 
 var app = {
     title: "Indecision App",
-    subtitle: "Jordan's first React application"
+    subtitle: "Jordan's first React application",
+    options: ["one", "two"]
+};
+
+var hasOptions = function hasOptions(options) {
+    if (!options) {
+        return React.createElement(
+            "p",
+            null,
+            "No options"
+        );
+    }
+    if (options.length > 0) {
+        return React.createElement(
+            "p",
+            null,
+            "Here are your options"
+        );
+    }
+    return React.createElement(
+        "p",
+        null,
+        "No options"
+    );
 };
 
 var template = React.createElement(
@@ -17,11 +40,12 @@ var template = React.createElement(
         null,
         app.title
     ),
-    React.createElement(
+    app.subtitle && React.createElement(
         "p",
         null,
         app.subtitle
     ),
+    hasOptions(app.options),
     React.createElement(
         "ol",
         null,
@@ -38,6 +62,18 @@ var template = React.createElement(
     )
 );
 
+var getLocation = function getLocation(location) {
+    if (location) {
+        return React.createElement(
+            "p",
+            null,
+            "Location: ",
+            location
+        );
+    }
+    return undefined;
+};
+
 var user = {
     name: "Jordan",
     age: 21,
@@ -50,27 +86,16 @@ var template2 = React.createElement(
     React.createElement(
         "h1",
         null,
-        user.name
+        user.name ? user.name : "Anonymous"
     ),
-    React.createElement(
+    user.age && user.age >= 18 && React.createElement(
         "p",
         null,
         "Age: ",
         user.age
     ),
-    React.createElement(
-        "p",
-        null,
-        "Location: ",
-        user.location
-    )
+    getLocation(user.location)
 );
-
-// Create a template2 variable as a JSX expression
-// div (root element) containing h1 tag with your name
-//  -> p tag: age: age
-// -> p tag: Location: place
-// render template 2 instead of template.
 
 var appRoot = document.getElementById("app");
 
