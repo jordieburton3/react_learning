@@ -2,13 +2,13 @@ console.log("React.js is running");
 
 // JSX - JavaScript XML
 
-var app = {
+let app = {
     title: "Indecision App",
     subtitle: "Jordan's first React application",
-    options: ["one", "two"]
+    options: []
 }
 
-var hasOptions = function(options) {
+let hasOptions = function(options) {
     if (!options) {
         return <p>No options</p>;
     }
@@ -18,39 +18,51 @@ var hasOptions = function(options) {
     return <p>No options</p>;
 }
 
-var template = (
-  <div>
-    <h1>{app.title}</h1> 
-    {app.subtitle && <p>{app.subtitle}</p>}
-    {hasOptions(app.options)}
-    <ol>
-        <li>Item 1</li>
-        <li>Item 2</li>
-    </ol>
-  </div>
-);
-
-var getLocation = function(location) {
-    if (location) {
-        return <p>Location: {location}</p>;
-    }
-    return undefined;
+const onRemoveAll = () => {
+    app.options = [];
+    renderPage();
 }
 
-var user = {
-    name: "Jordan",
-    age: 21,
-    location: "New York"
+const numbers = [55, 101, 1000];
+
+const renderPage = () => {
+    let template = (
+        <div>
+          <h1>{app.title}</h1> 
+          {app.subtitle && <p>{app.subtitle}</p>}
+          {hasOptions(app.options)}
+          <p>{app.options.length}</p>
+          <button onClick={onRemoveAll}>Remove All Options</button>
+          {/*
+              numbers.map((number) => {
+                return <p key={number}>Number: {number * 2}</p>;
+              }) */
+          }
+          <ol>
+              {
+                  app.options.map((option) => {
+                      return <li key={option}>{option}</li>;
+                  })
+              }
+          </ol>
+          <form onSubmit={onFormSubmit}>
+              <input type='text' name='option'/>
+              <button>Add option</button>
+          </form>
+        </div>
+      );
+      ReactDOM.render(template, appRoot);
 };
 
-var template2 = (
-    <div>
-        <h1>{user.name ? user.name : "Anonymous"}</h1>
-        {(user.age && user.age >= 18) && <p>Age: {user.age}</p>}
-        {getLocation(user.location)}
-    </div>
-);
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    const option = e.target.elements.option.value;
+    if (option) {
+        app.options.push(option);
+        e.target.elements.option.value = '';
+        renderPage();
+    }
+};
 
-var appRoot = document.getElementById("app");
-
-ReactDOM.render(template, appRoot);
+let appRoot = document.getElementById("app");
+renderPage();
