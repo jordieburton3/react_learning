@@ -1,109 +1,35 @@
 "use strict";
 
-console.log("React.js is running");
+var appRoot = document.getElementById("app");
+var hidden = true;
 
-// JSX - JavaScript XML
-
-var app = {
-    title: "Indecision App",
-    subtitle: "Jordan's first React application",
-    options: []
+var toggleHidden = function toggleHidden() {
+    hidden = !hidden;
+    renderTemplate();
 };
 
-var hasOptions = function hasOptions(options) {
-    if (!options) {
-        return React.createElement(
-            "p",
-            null,
-            "No options"
-        );
-    }
-    if (options.length > 0) {
-        return React.createElement(
-            "p",
-            null,
-            "Here are your options"
-        );
-    }
-    return React.createElement(
-        "p",
-        null,
-        "No options"
-    );
-};
-
-var onRemoveAll = function onRemoveAll() {
-    app.options = [];
-    renderPage();
-};
-
-var numbers = [55, 101, 1000];
-
-var onMakeDecision = function onMakeDecision() {
-    var randomNumber = Math.floor(Math.random() * app.options.length);
-    var option = app.options[randomNumber];
-    alert(option);
-};
-
-var renderPage = function renderPage() {
+var renderTemplate = function renderTemplate() {
     var template = React.createElement(
         "div",
         null,
         React.createElement(
             "h1",
             null,
-            app.title
+            "Visibility Toggle"
         ),
-        app.subtitle && React.createElement(
+        React.createElement(
+            "button",
+            { onClick: toggleHidden },
+            " ",
+            hidden ? "Show Details" : "Hide Details"
+        ),
+        !hidden && React.createElement(
             "p",
             null,
-            app.subtitle
-        ),
-        hasOptions(app.options),
-        React.createElement(
-            "button",
-            { disabled: app.options == 0, onClick: onMakeDecision },
-            "What should I do?"
-        ),
-        React.createElement(
-            "button",
-            { onClick: onRemoveAll },
-            "Remove All Options"
-        ),
-        React.createElement(
-            "ol",
-            null,
-            app.options.map(function (option) {
-                return React.createElement(
-                    "li",
-                    { key: option },
-                    option
-                );
-            })
-        ),
-        React.createElement(
-            "form",
-            { onSubmit: onFormSubmit },
-            React.createElement("input", { type: "text", name: "option" }),
-            React.createElement(
-                "button",
-                null,
-                "Add option"
-            )
+            "Here are the details!"
         )
     );
     ReactDOM.render(template, appRoot);
 };
 
-var onFormSubmit = function onFormSubmit(e) {
-    e.preventDefault();
-    var option = e.target.elements.option.value;
-    if (option) {
-        app.options.push(option);
-        e.target.elements.option.value = '';
-        renderPage();
-    }
-};
-
-var appRoot = document.getElementById("app");
-renderPage();
+renderTemplate();
