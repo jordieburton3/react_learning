@@ -4,11 +4,14 @@
   "main": "index.js",
   "license": "MIT",
   "repository": "https://github.com/jordieburton3/react_learning.git",
-  "scripts" : {
-    "watch" : "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
+  "scripts": {
+    "watch": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch"
   },
   "dependencies": {
-    "babel-preset-env": "1.5.2",
+    "babel-preset-env": "1.5.2"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-react": "6.24.1"
   }
 }
