@@ -1,62 +1,53 @@
 class Person {
-    constructor(name = "Anonymous", age = 0) {
-        this.name = name;
-        this.age = age;
-    }
-
-    getGreeting() {
-        return `Hi, I am ${this.name}!`;
-    }
-
-    getDescription() {
-        return `${this.name} is ${this.age} years old.`
-    }
+  constructor(name = 'Anonymous', age = 0) {
+    this.name = name;
+    this.age = age;
+  }
+  getGreeting() {
+    return `Hi. I am ${this.name}!`;
+  }
+  getDescription() {
+    return `${this.name} is ${this.age} year(s) old.`;
+  }
 }
 
 class Student extends Person {
-    constructor(name, age, major) {
-        super(name, age);
-        this.major = major;
+  constructor(name, age, major) {
+    super(name, age);
+    this.major = major;
+  }
+  hasMajor() {
+    return !!this.major;
+  }
+  getDescription() {
+    let description = super.getDescription();
+
+    if (this.hasMajor()) {
+      description += ` Their major is ${this.major}.`;
     }
 
-    getDescription() {
-        let description = super.getDescription();
-        if (this.hasMajor()) {
-            description +=  ` Their major is ${this.major}`
-        }
-        return description;
-    }
-
-    hasMajor() {
-        return !!this.major;
-    }
+    return description;
+  }
 }
 
 class Traveler extends Person {
-    constructor(name, age, home) {
-        super(name, age);
-        this.home = home;
+  constructor(name, age, homeLocation) {
+    super(name, age);
+    this.homeLocation = homeLocation;
+  }
+  getGreeting() {
+    let greeting = super.getGreeting();
+
+    if (this.homeLocation) {
+      greeting += ` I am visiting from ${this.homeLocation}.`;
     }
 
-    getGreeting() {
-        let greeting = `Hi, I am ${this.name}!`;
-        if (this.home) {
-            greeting += ` I am visiting from ${this.home}`
-        }
-        return greeting;
-    }
+    return greeting;
+  }
 }
 
-const me = new Traveler("Jordan Burton", 21, "Warwick, New York");
-console.log(me);
-
-console.log(me.getDescription());
-
+const me = new Traveler('Andrew Mead', 26, 'Philadelphia');
 console.log(me.getGreeting());
 
-const other = new Traveler();
-console.log(other);
-
-console.log(other.getDescription());
-
+const other = new Traveler(undefined, undefined, 'Nowhere');
 console.log(other.getGreeting());
